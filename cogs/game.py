@@ -35,7 +35,22 @@ class game(commands.Cog):
 
     @slash_command("luck", "To make a divine to show your luck now")
     async def luck(self, ctx):
-        luck = random.randint(100, 10000)/100
+
+        guild = ctx.guild
+        channel_id = ctx.channel_id
+        channel = guild.get_channel(channel_id)
+
+        await ctx.response.send_message("你正在抽籤...")
+
+        luckList = ["大吉", "中吉", "小吉", "吉", "末吉", "凶", "大凶"]
+        await channel.send("正在幫您解籤...")
+        for i in range(len(luckList)):
+            get = random.randint(1, 700)
+            if get < 100:
+                await channel.send(f"您今天的運勢是`{luckList[i]}`")
+                return
+        else:
+            await channel.send(f"您今天的運勢是`{luckList[6]}`")
 
 
 
